@@ -13,6 +13,7 @@ namespace Session1.Controllers
         // GET: AccountBook
         public ActionResult Index()
         {
+            ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
             return View();
         }
 
@@ -23,6 +24,9 @@ namespace Session1.Controllers
             pageData.iden = maxIden;
             accountbookdata.AccountBookDataList.Add(pageData);
 
+            //ViewData["AccountTypeSelectListItem"] = GetAccountTypeSelectListItem();
+            //ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
+
             return View();
         }
 
@@ -30,6 +34,17 @@ namespace Session1.Controllers
         public ActionResult GetAccountBookList()
         {
             return View(accountbookdata.AccountBookDataList);
+        }
+
+
+        public IEnumerable<SelectListItem> GetAccountTypeSelectListItem()
+        {
+            return new List<SelectListItem>()
+            {
+                new SelectListItem { Text="1.支出",Value="1" },
+                new SelectListItem { Text="2.收入",Value="2" }
+            }.AsEnumerable();
+
         }
     }
 }
