@@ -30,7 +30,7 @@ namespace Session1.Controllers
             return View();
         }
 
-
+        [ChildActionOnly]
         public ActionResult GetAccountBookList()
         {
             return View(accountbookdata.AccountBookDataList);
@@ -44,7 +44,6 @@ namespace Session1.Controllers
                 new SelectListItem { Text="1.支出",Value="1" },
                 new SelectListItem { Text="2.收入",Value="2" }
             }.AsEnumerable();
-
         }
     }
 }
