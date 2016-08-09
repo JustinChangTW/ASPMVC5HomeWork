@@ -38,7 +38,7 @@ namespace Session1.Controllers
         [ChildActionOnly]
         public ActionResult GetAccountBookList()
         {
-            return  View(accountbookdata.AccountBookDataList);
+            return  View(_accountbookSerivce.GetAll());
         }
 
 

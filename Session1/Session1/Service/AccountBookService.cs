@@ -11,15 +11,47 @@ namespace Session1.Service
     public class AccountBookService
     {
         private DbModel _db;
-        
+        private static MapperConfiguration _config = null;
+        private static IMapper _mapper = null;
+
         public AccountBookService()
         {
             _db = new DbModel();
+            SetMapperConfiguration();
         }
 
-        public IEnumerable<AccountBook> GetAll()
+        private static void SetMapperConfiguration()
         {
-            return _db.AccountBook.ToList();
+            _config = new MapperConfiguration(a =>
+            {
+                a.CreateMap<AccountBookViewModel, AccountBook>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => Guid.NewGuid()))
+                .ForMember(x => x.Categoryyy, y => y.MapFrom(z => z.AccountType))
+                .ForMember(x => x.Amounttt, y => y.MapFrom(z => z.Amount))
+                .ForMember(x => x.Dateee, y => y.MapFrom(z => z.AcountDate))
+                .ForMember(x => x.Remarkkk, y => y.MapFrom(z => z.Mome));
+            });
+
+            _config = new MapperConfiguration(a =>
+            {
+                a.CreateMap< AccountBook, AccountBookViewModel>()
+                .ForMember(x => x.iden, y => y.MapFrom(z => 1))
+                .ForMember(x => x.AccountType, y => y.MapFrom(z => z.Categoryyy))
+                .ForMember(x => x.Amount, y => y.MapFrom(z => z.Amounttt))
+                .ForMember(x => x.AcountDate, y => y.MapFrom(z => z.Dateee.ToString("yyyy-MM-dd")))
+                .ForMember(x => x.Mome, y => y.MapFrom(z => z.Remarkkk));
+            });
+
+            _config.AssertConfigurationIsValid();
+            _mapper = _config.CreateMapper();
+        }
+
+        public IEnumerable<AccountBookViewModel> GetAll()
+        {
+            var getData = _db.AccountBook.ToList();
+            var resualData = new List<AccountBookViewModel>();
+            getData.ForEach(d => resualData.Add(_mapper.Map<AccountBookViewModel>(d)));
+            return resualData;
         }
 
         public AccountBook GetSingle(Guid Id)
@@ -30,26 +62,7 @@ namespace Session1.Service
 
         public void Add(AccountBookViewModel pageData)
         {
-
-            //var accountBook = new AccountBook() { };
-
-            //使用AutoMapper轉換
-            var config = new MapperConfiguration(a => 
-            {
-                a.CreateMap<AccountBookViewModel, AccountBook>()
-                .ForMember(x => x.Id, y => y.MapFrom(z => Guid.NewGuid()))
-                .ForMember(x => x.Categoryyy, y => y.MapFrom(z => z.AccountType))
-                .ForMember(x => x.Amounttt, y => y.MapFrom(z => z.Amount))
-                .ForMember(x => x.Dateee, y => y.MapFrom(z => z.AcountDate))
-                .ForMember(x => x.Remarkkk, y => y.MapFrom(z => z.Mome));
-            });
-            config.AssertConfigurationIsValid();
-            var mapper = config.CreateMapper();
-            //mapper
-            var accountBook = mapper.Map<AccountBook>(pageData);
-            //accountBook.Id = Guid.NewGuid();
-            //accountBook.
-
+            var accountBook = _mapper.Map<AccountBook>(pageData);
             _db.AccountBook.Add(accountBook);
             
         }
