@@ -3,12 +3,13 @@
 @{
     ViewBag.Title = "GetAccountBookList";
     Layout = "";
+    int i = 0;
 }
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.iden)
+            # @*@Html.DisplayNameFor(model => model.iden)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AccountType)
@@ -28,7 +29,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.iden)
+            @(i++) @*Html.DisplayFor(modelItem => item.iden)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AccountType)

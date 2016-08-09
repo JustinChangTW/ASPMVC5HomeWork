@@ -1,4 +1,5 @@
 ﻿using Session1.Models;
+using Session1.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Session1.Controllers
     public class AccountBookController : Controller
     {
         AccountBookData accountbookdata = AccountBookData.GetInstance();
+        private AccountBookService _accountbookSerivce = new AccountBookService();
         // GET: AccountBook
         public ActionResult Index()
         {
@@ -20,12 +22,15 @@ namespace Session1.Controllers
         [HttpPost]
         public ActionResult Index(AccountBookViewModel pageData)
         {
-            var maxIden = (accountbookdata.AccountBookDataList.Last()).iden+1;
-            pageData.iden = maxIden;
-            accountbookdata.AccountBookDataList.Add(pageData);
+            //var maxIden = (accountbookdata.AccountBookDataList.Last()).iden+1;
+            //pageData.iden = maxIden;
+            //accountbookdata.AccountBookDataList.Add(pageData);
 
             //ViewData["AccountTypeSelectListItem"] = GetAccountTypeSelectListItem();
-            //ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
+            ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
+
+            _accountbookSerivce.Add(pageData);
+            _accountbookSerivce.Save();
 
             return View();
         }
@@ -33,7 +38,7 @@ namespace Session1.Controllers
         [ChildActionOnly]
         public ActionResult GetAccountBookList()
         {
-            return View(accountbookdata.AccountBookDataList);
+            return  View(accountbookdata.AccountBookDataList);
         }
 
 
