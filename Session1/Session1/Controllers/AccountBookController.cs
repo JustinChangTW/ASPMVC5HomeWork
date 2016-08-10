@@ -1,4 +1,5 @@
 ﻿using Session1.Models;
+using Session1.Repositories;
 using Session1.Service;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,15 @@ namespace Session1.Controllers
 {
     public class AccountBookController : Controller
     {
-        AccountBookData accountbookdata = AccountBookData.GetInstance();
-        private AccountBookService _accountbookSerivce = new AccountBookService();
+        //AccountBookData accountbookdata = AccountBookData.GetInstance();
+        private AccountBookService _accountbookSerivce = null;
+
+        public AccountBookController()
+        {
+            var unitOfWork = new EFUnitOfWork();
+            _accountbookSerivce = new AccountBookService(unitOfWork);
+        }
+
         // GET: AccountBook
         public ActionResult Index()
         {
@@ -38,7 +46,7 @@ namespace Session1.Controllers
         [ChildActionOnly]
         public ActionResult GetAccountBookList()
         {
-            return  View(_accountbookSerivce.GetAll());
+            return  View(_accountbookSerivce.GetAll().OrderBy(a=>a.AcountDate));
         }
 
 
