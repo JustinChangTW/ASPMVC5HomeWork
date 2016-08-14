@@ -27,7 +27,8 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr style="color:@(item.AccountType=="1.支出"?"red":"blue")">
+    @*<tr style="color:@(item.AccountType=="1.支出"?"red":"blue")">*@
+    <tr style="color:@AccountBookHelper.GetTrColor(item.AccountType)">
         <td>
             @(i++) @*Html.DisplayFor(modelItem => item.iden)*@
         </td>
@@ -47,3 +48,5 @@
 }
 
 </table>
+
+
