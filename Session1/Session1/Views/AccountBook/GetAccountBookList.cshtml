@@ -27,7 +27,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr style="color:@(item.AccountType=="1.支出"?"red":"blue")">
         <td>
             @(i++) @*Html.DisplayFor(modelItem => item.iden)*@
         </td>
