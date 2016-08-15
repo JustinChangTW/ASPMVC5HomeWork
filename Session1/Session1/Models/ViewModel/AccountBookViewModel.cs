@@ -16,13 +16,18 @@ namespace Session1.Models
         [DisplayName("類別")]
         [Required(ErrorMessage = "請輸入類別")]
         public string AccountType { get; set; }
+
         [DisplayName("金額")]
+        [Range(0.00,900000000.00,ErrorMessage = "金額請輸入大於 0.00")]
         [Required(ErrorMessage = "請輸入金額")]
         public decimal Amount { get; set; }
+
         [DisplayName("日期")]
         [Required(ErrorMessage = "請輸入日期")]
         public string AcountDate { get; set; }
+
         [DisplayName("備註")]
+        [StringLength(100,ErrorMessage ="備註字數請少於100")]
         [Required(ErrorMessage = "請輸入備註")]
         public string Mome { get; set; } 
     }

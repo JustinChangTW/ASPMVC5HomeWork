@@ -192,6 +192,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\AccountBook\Index.cshtml" />
     <Content Include="Views\AccountBook\GetAccountBookList.cshtml" />
+    <Content Include="Views\AccountBook\IndexAjax.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -4,6 +4,7 @@ using Session1.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -24,6 +25,15 @@ namespace Session1.Controllers
         public ActionResult Index()
         {
             ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
+            ViewBag.Type = "";
+            return View();
+        }
+
+        // GET: AccountBook
+        public ActionResult IndexAjax()
+        {
+            ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
+            ViewBag.Type = "AJAX";
             return View();
         }
 
@@ -43,9 +53,29 @@ namespace Session1.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public ActionResult IndexAjax(AccountBookViewModel pageData)
+        {
+
+            ViewBag.Type = "AJAX";
+            //var maxIden = (accountbookdata.AccountBookDataList.Last()).iden+1;
+            //pageData.iden = maxIden;
+            //accountbookdata.AccountBookDataList.Add(pageData);
+
+            //ViewData["AccountTypeSelectListItem"] = GetAccountTypeSelectListItem();
+            ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
+
+            _accountbookSerivce.Add(pageData);
+            _accountbookSerivce.Save();
+
+            return View();
+        }
+
         [ChildActionOnly]
         public ActionResult GetAccountBookList()
         {
+            Thread.Sleep(5000);
             return  View(_accountbookSerivce.GetAll().OrderBy(a=>a.AcountDate));
         }
 
