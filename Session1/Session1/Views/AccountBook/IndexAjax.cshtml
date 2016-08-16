@@ -8,7 +8,10 @@
 
 
 @using (Ajax.BeginForm(new AjaxOptions {
-    UpdateTargetId = "ajax"
+    UpdateTargetId = "ajax",
+    Url = Url.Action("AjaxPost"),
+    LoadingElementDuration = 1000,
+    LoadingElementId = "load"   
 })
 )
 {
@@ -68,10 +71,16 @@
     </div>
 }
 
+<div id="load">
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    <span class="sr-only">Loading...</span>
+</div>
+
 <div id="ajax">
     @Html.Action("GetAccountBookList")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
 }
