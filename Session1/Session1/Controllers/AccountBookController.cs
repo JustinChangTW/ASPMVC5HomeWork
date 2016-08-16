@@ -72,11 +72,24 @@ namespace Session1.Controllers
             return View();
         }
 
-        [ChildActionOnly]
+        //[ChildActionOnly]
         public ActionResult GetAccountBookList()
         {
-            Thread.Sleep(5000);
-            return  View(_accountbookSerivce.GetAll().OrderBy(a=>a.AcountDate));
+            Thread.Sleep(1000);
+            return  View(_accountbookSerivce.GetAll().OrderByDescending(a=>a.AcountDate));
+        }
+
+
+        public ActionResult GetAccountBookListAjax(AccountBookViewModel pageData)
+        {
+            Thread.Sleep(1000);
+            if (pageData.AccountType != null)
+            {
+                ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
+                _accountbookSerivce.Add(pageData);
+                _accountbookSerivce.Save();
+            }
+            return View(_accountbookSerivce.GetAll().OrderByDescending(a => a.AcountDate));
         }
 
 
