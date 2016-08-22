@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using ValidateSample.Filters;
 
 namespace Session1.Models
 {
@@ -18,12 +20,14 @@ namespace Session1.Models
         public string AccountType { get; set; }
 
         [DisplayName("金額")]
-        [Range(0.00,900000000.00,ErrorMessage = "金額請輸入大於 0.00")]
+        [Range(0.00,99999999999.00,ErrorMessage = "金額請輸入大於 0.00")]
         [Required(ErrorMessage = "請輸入金額")]
         public decimal Amount { get; set; }
 
         [DisplayName("日期")]
         [Required(ErrorMessage = "請輸入日期")]
+        //[Remote("Index", "Valid", ErrorMessage = "名稱請輸入「skilltree」")]
+        [RemotePlusAttribute("Index", "Valid","", ErrorMessage = "名稱請輸入「skilltree」")]
         public string AcountDate { get; set; }
 
         [DisplayName("備註")]
