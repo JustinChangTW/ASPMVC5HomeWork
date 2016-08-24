@@ -11,7 +11,7 @@ namespace ValidateSample.Controllers
         public ActionResult Index(string acountdate)
         {
             bool isValidate = Convert.ToDateTime(acountdate) <= DateTime.Now;//.ToString("yyyy-MM-dd") ;
-           return Json(isValidate, JsonRequestBehavior.AllowGet);
+            return Json(isValidate, JsonRequestBehavior.AllowGet);
         }
 	}
 }

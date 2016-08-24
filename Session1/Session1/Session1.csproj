@@ -138,8 +138,9 @@
     <Compile Include="Controllers\AccountBookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValidController.cs" />
-    <Compile Include="Filters\RemoteDoublePlusAttribute.cs" />
-    <Compile Include="Filters\RemotePlusAttribute.cs" />
+    <Compile Include="Expansion\Attribute\CheckDataAttribute.cs" />
+    <Compile Include="Expansion\Filters\RemoteDoublePlusAttribute.cs" />
+    <Compile Include="Expansion\Filters\RemotePlusAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -176,6 +177,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ExpansionFilters.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

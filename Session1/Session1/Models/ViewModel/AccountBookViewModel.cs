@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using ValidateSample.Filters;
+using Session1.Expansion.Attribute;
 
 namespace Session1.Models
 {
@@ -27,7 +28,8 @@ namespace Session1.Models
         [DisplayName("日期")]
         [Required(ErrorMessage = "請輸入日期")]
         //[Remote("Index", "Valid", ErrorMessage = "名稱請輸入「skilltree」")]
-        [RemotePlusAttribute("Index", "Valid","", ErrorMessage = "名稱請輸入「skilltree」")]
+        //[RemotePlusAttribute("Index", "Valid","", ErrorMessage = "{0}請輸入小於天日期")]
+        [CheckDataAttribute(ErrorMessage = "{0}請輸入小於天日期")]
         public string AcountDate { get; set; }
 
         [DisplayName("備註")]
