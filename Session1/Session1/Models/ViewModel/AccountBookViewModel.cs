@@ -17,23 +17,22 @@ namespace Session1.Models
         public int? iden { get; set;}
 
         [DisplayName("類別")]
-        [Required(ErrorMessage = "請輸入類別")]
+        [Required(ErrorMessage = "請輸入{0}")]
         public string AccountType { get; set; }
 
         [DisplayName("金額")]
-        [Range(0.00,99999999999.00,ErrorMessage = "金額請輸入大於 0.00")]
+        [Range(0.00,(double)decimal.MaxValue,ErrorMessage = "{0}請輸入大於{1}")]
         [Required(ErrorMessage = "請輸入金額")]
         public decimal Amount { get; set; }
 
         [DisplayName("日期")]
-        [Required(ErrorMessage = "請輸入日期")]
-        //[Remote("Index", "Valid", ErrorMessage = "名稱請輸入「skilltree」")]
+        [Required(ErrorMessage = "請輸入{0}")]
         //[RemotePlusAttribute("Index", "Valid","", ErrorMessage = "{0}請輸入小於天日期")]
         [CheckDataAttribute(ErrorMessage = "{0}請輸入小於天日期")]
         public string AcountDate { get; set; }
 
         [DisplayName("備註")]
-        [StringLength(100,ErrorMessage ="備註字數請少於100")]
+        [StringLength(100,ErrorMessage ="{0}字數請少於{1}")]
         [Required(ErrorMessage = "請輸入備註")]
         public string Mome { get; set; } 
     }
