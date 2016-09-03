@@ -23,6 +23,7 @@ namespace Session1.Models
         [DisplayName("金額")]
         [Range(0.00,(double)decimal.MaxValue,ErrorMessage = "{0}請輸入大於{1}")]
         [Required(ErrorMessage = "請輸入金額")]
+        [DataType(DataType.Currency)]
         public decimal Amount { get; set; }
 
         [DisplayName("日期")]
