@@ -66,6 +66,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -136,8 +137,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountBookController.cs" />
+    <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValidController.cs" />
+    <Compile Include="CustomResults\RssResult.cs" />
     <Compile Include="Expansion\Attribute\CheckDataAttribute.cs" />
     <Compile Include="Expansion\Filters\RemoteDoublePlusAttribute.cs" />
     <Compile Include="Expansion\Filters\RemotePlusAttribute.cs" />
@@ -279,7 +282,9 @@
     <Content Include="Views\AccountBook\IndexAjax.cshtml" />
     <Content Include="Views\AccountBook\GetAccountBookListAjax.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Feed\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
