@@ -44,7 +44,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AcountDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AcountDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "日期" } })
+                @Html.EditorFor(model => model.AcountDate, new {  htmlAttributes = new { @class = "form-control Wdate", @placeholder = "日期!!!!!", data_provide = "text-danger" } })
+                @*new Dictionary<string, object> { { "data-provide", "datepicker" } })*@
                 @Html.ValidationMessageFor(model => model.AcountDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -73,5 +74,18 @@
     @*加入前端辨斷*@
     @Scripts.Render("~/Scripts/ExpansionFilters.js")
 
+
+
+    @*加入日期選擇器 欄位Class加入Wdate*@
+    @Scripts.Render("~/Scripts/My97DatePicker/WdatePicker.js")
+    @*將欄位Click事件綁定WdatePicker()*@  
+    <script type="text/javascript">
+        $(".Wdate").click(function() {
+            WdatePicker()
+        })
+    </script>
+
+
 }
+
 
