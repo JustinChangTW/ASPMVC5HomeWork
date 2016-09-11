@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Session1.Models.AccountBookViewModel>
+
+@{
+    ViewBag.Title = "GetAccountBookList";
+    Layout = "";
+    int i = 1;
+}
+
+<table class="table">
+    <tr>
+        <th>
+            # @*@Html.DisplayNameFor(model => model.iden)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AcountDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    @*<tr style="color:@(item.AccountType=="1.支出"?"red":"blue")">*@
+    <tr style="color:@AccountBookHelper.GetTrColor(item.AccountType)">
+        <td>
+            @(i++) @*Html.DisplayFor(modelItem => item.iden)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AcountDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mome)
+        </td>
+    </tr>
+}
+
+</table>
+
+
