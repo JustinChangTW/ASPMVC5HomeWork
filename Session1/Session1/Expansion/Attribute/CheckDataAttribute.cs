@@ -29,6 +29,8 @@ namespace Session1.Expansion.Attribute
             //要不要輸入與此驗證無關
             if (value == null)  return true;
 
+            
+
             //如果輸入的值是字串才做判斷
             if (value is string)
             {

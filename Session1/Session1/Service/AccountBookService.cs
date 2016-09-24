@@ -32,7 +32,7 @@ namespace Session1.Service
             {
                 a.CreateMap<AccountBookViewModel, AccountBook>()
                 .ForMember(x => x.Id, y => y.MapFrom(z => Guid.NewGuid()))
-                .ForMember(x => x.Categoryyy, y => y.MapFrom(z => z.AccountType))
+                .ForMember(x => x.Categoryyy, y => y.MapFrom(z => (z.AccountType == "1.支出"?1:2)))
                 .ForMember(x => x.Amounttt, y => y.MapFrom(z => z.Amount))
                 .ForMember(x => x.Dateee, y => y.MapFrom(z => z.AcountDate))
                 .ForMember(x => x.Remarkkk, y => y.MapFrom(z => z.Mome));
@@ -41,7 +41,7 @@ namespace Session1.Service
             _Ent2Model = new MapperConfiguration(a =>
             {
                 a.CreateMap<AccountBook, AccountBookViewModel>()
-                .ForMember(x => x.iden, y => y.MapFrom(z => 1))
+                .ForMember(x => x.iden, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.AccountType, y => y.MapFrom(z => z.Categoryyy == 1 ? "1.支出" : "2.收入"))
                 .ForMember(x => x.Amount, y => y.MapFrom(z => z.Amounttt))
                 .ForMember(x => x.AcountDate, y => y.MapFrom(z => z.Dateee.ToString("yyyy-MM-dd")))
@@ -62,6 +62,15 @@ namespace Session1.Service
             return resualData;
         }
 
+        public AccountBookViewModel GetSingle(Guid? Id)
+        {
+            var getData = _accountbookRep.GetSingle(a => a.Id == Id);
+            _mapper = _Ent2Model.CreateMapper();
+            var resualDate = _mapper.Map<AccountBookViewModel>(getData);
+            return resualDate;
+        }
+
+
         public void Add(AccountBookViewModel pageData)
         {
             _Model2Ent.AssertConfigurationIsValid();
@@ -70,6 +79,26 @@ namespace Session1.Service
             var accountBook = _mapper.Map<AccountBook>(pageData);
             //_db.AccountBook.Add(accountBook);
             _accountbookRep.Create(accountBook);
+        }
+
+
+        public void Modify(AccountBookViewModel pageData)
+        {
+            _Model2Ent.AssertConfigurationIsValid();
+            _mapper = _Model2Ent.CreateMapper();
+
+            //var accountBook = _mapper.Map<AccountBook>(pageData);
+
+            var modify = _accountbookRep.GetSingle(a => a.Id == pageData.iden);
+
+          
+            modify.Categoryyy = pageData.AccountType == "1.支出" ? 1 : 2;
+            modify.Dateee = Convert.ToDateTime(pageData.AcountDate);
+            modify.Amounttt = (int)pageData.Amount;
+            modify.Remarkkk = pageData.Mome;
+
+            //_db.AccountBook.Add(accountBook);
+            //_accountbookRep.(accountBook);
         }
 
         public void Save()
