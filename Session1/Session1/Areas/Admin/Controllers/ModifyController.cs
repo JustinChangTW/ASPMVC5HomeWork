@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Session1.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ModifyController : Controller
     {
         private AccountBookService _accountbookSerivce = null;
