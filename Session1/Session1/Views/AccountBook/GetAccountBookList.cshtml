@@ -1,4 +1,10 @@
-﻿@model IEnumerable<Session1.Models.AccountBookViewModel>
+﻿@*@model IEnumerable<Session1.Models.AccountBookViewModel>*@
+@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<Session1.Models.AccountBookViewModel>
+
+
+
 
 @{
     ViewBag.Title = "GetAccountBookList";
@@ -48,5 +54,12 @@
 }
 
 </table>
+<nav>
+    @Html.PagedListPager((IPagedList)Model, d => Url.Action("index", new{page = d}))
+</nav>
+
+
+
+
 
 

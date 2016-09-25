@@ -1,4 +1,5 @@
-﻿using Session1.Models;
+﻿using PagedList;
+using Session1.Models;
 using Session1.Repositories;
 using Session1.Service;
 using System;
@@ -24,11 +25,13 @@ namespace Session1.Controllers
         }
 
         // GET: AccountBook
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
             ViewBag.Type = "";
             TempData["date"] = "";
+            var pageIndex = (page.HasValue ? page.Value < 1 ? 1 : page.Value : 1);
+            TempData["page"] = pageIndex;
             return View();
         }
 
@@ -36,11 +39,12 @@ namespace Session1.Controllers
         //▪可指定年月顯示該年月的所有收支
         //▪輸入 http://localhost/skilltree/yyyy/mm 可看到該年月收支
         [Route("{*date:datetime}")]
-        public ActionResult Index(DateTime date)
+        public ActionResult Index(DateTime date,int? page)
         {
             ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
             ViewBag.Type = "";
             TempData["date"] = date.ToString("yyyy-MM");
+            TempData["page"] = page;
             return View();
         }
 
@@ -90,14 +94,24 @@ namespace Session1.Controllers
         [ChildActionOnly]
         public ActionResult GetAccountBookList()
         {
+            IEnumerable<AccountBookViewModel> returnDate = null;
             //增加日期過瀘條件
             String date;
             if ((String)TempData["date"] != "")
             {
                 date = (String)TempData["date"];
-                return View(_accountbookSerivce.GetAll().Where(a => a.AcountDate.Substring(0, 7) == date).OrderByDescending(a => a.AcountDate));
+                returnDate = _accountbookSerivce.GetAll().Where(a => a.AcountDate.Substring(0, 7) == date).OrderByDescending(a => a.AcountDate);
             }
-            return View(_accountbookSerivce.GetAll().OrderByDescending(a => a.AcountDate));
+            else
+            {
+                returnDate = _accountbookSerivce.GetAll().OrderByDescending(a => a.AcountDate);
+            }
+
+            var page = (int)TempData["page"];
+
+            var pageSize = 10;
+
+            return View(returnDate.ToPagedList(page,pageSize));
 
          }
 
