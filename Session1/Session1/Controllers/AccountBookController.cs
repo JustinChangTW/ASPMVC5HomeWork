@@ -28,6 +28,19 @@ namespace Session1.Controllers
         {
             ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
             ViewBag.Type = "";
+            TempData["date"] = "";
+            return View();
+        }
+
+        //▪增加年月列表功能
+        //▪可指定年月顯示該年月的所有收支
+        //▪輸入 http://localhost/skilltree/yyyy/mm 可看到該年月收支
+        [Route("{*date:datetime}")]
+        public ActionResult Index(DateTime date)
+        {
+            ViewBag.AccountTypeItems = GetAccountTypeSelectListItem();
+            ViewBag.Type = "";
+            TempData["date"] = date.ToString("yyyy-MM");
             return View();
         }
 
@@ -74,13 +87,19 @@ namespace Session1.Controllers
             return View();
         }
 
-        //[ChildActionOnly]
+        [ChildActionOnly]
         public ActionResult GetAccountBookList()
         {
-            Thread.Sleep(1000);
-            return  View(_accountbookSerivce.GetAll().OrderByDescending(a=>a.AcountDate));
-        }
+            //增加日期過瀘條件
+            String date;
+            if ((String)TempData["date"] != "")
+            {
+                date = (String)TempData["date"];
+                return View(_accountbookSerivce.GetAll().Where(a => a.AcountDate.Substring(0, 7) == date).OrderByDescending(a => a.AcountDate));
+            }
+            return View(_accountbookSerivce.GetAll().OrderByDescending(a => a.AcountDate));
 
+         }
 
         public ActionResult GetAccountBookListAjax(AccountBookViewModel pageData)
         {
