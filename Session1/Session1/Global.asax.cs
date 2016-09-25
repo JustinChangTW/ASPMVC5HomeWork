@@ -15,6 +15,8 @@ namespace Session1
         {
             //AutoMapperConfig.Configure();
 
+            RouteTable.Routes.MapMvcAttributeRoutes();
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

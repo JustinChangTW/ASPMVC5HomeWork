@@ -10,6 +10,8 @@ using System.Web.Mvc;
 
 namespace Session1.Controllers
 {
+    [RoutePrefix("SkillTree")]
+    [Route("{action=index}")]
     public class AccountBookController : Controller
     {
         //AccountBookData accountbookdata = AccountBookData.GetInstance();
